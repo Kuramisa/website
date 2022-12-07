@@ -1,10 +1,9 @@
 require("dotenv").config();
 const express = require("express");
-const fs = require("fs");
 const path = require("path");
 const app = express();
 
-let server = process.env.NODE_ENV !== "development" ? require("https").createServer(app) : require("http").createServer(app);
+const server = require("http").createServer(app);
 
 const port = process.env.NODE_ENV === "development" ? 80 : process.env.PORT;
 const publicPath = path.join(__dirname, "build");
