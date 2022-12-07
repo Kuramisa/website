@@ -7,7 +7,7 @@ export const LoginUser = gql`
 `;
 
 export const AuthUser = gql`
-    mutation authuser($auth: String!) {
+    mutation authUser($auth: String!) {
         authUser(auth: $auth)
     }
 `;
