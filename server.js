@@ -10,7 +10,7 @@ let server = process.env.NODE_ENV !== 'development' ? require('https').createSer
     ca: fs.readFileSync(__dirname + '/ca.cer', 'utf-8')
 }, app) : require('http').createServer(app);
 
-const port = process.env.NODE_ENV === 'development' ? 80 : 443;
+const port = process.env.NODE_ENV === 'development' ? 80 : process.env.PORT;
 const publicPath = path.join(__dirname, "build");
 
 app.use(express.static(publicPath));
