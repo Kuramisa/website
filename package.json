@@ -36,7 +36,7 @@
     "web-vitals": "^3.1.0"
   },
   "scripts": {
-    "start": "serve -s build --listen 8580 --ssl-cert \"public.cer\" --ssl-key \"private.key\"",
+    "start": "serve -s build --ssl-cert \"public.cer\" --ssl-key \"private.key\"",
     "dev": "craco start",
     "build": "craco build",
     "test": "craco test",
