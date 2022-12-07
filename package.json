@@ -36,7 +36,7 @@
     "web-vitals": "^3.1.0"
   },
   "scripts": {
-    "start": "serve -s build --ssl-cert \"public.cer\" --ssl-key \"private.key\"",
+    "start": "node server.js",
     "dev": "craco start",
     "build": "craco build",
     "test": "craco test",
