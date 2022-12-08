@@ -31,17 +31,35 @@ const Navigation = () => {
                 className="top-nav"
                 model={items}
                 end={
+                <>
+                    <Button
+                        label="Invite"
+                        className="p-button-danger"
+                        onClick={() => window.open("https://discord.com/oauth2/authorize?client_id=969414951292788766&permissions=1634569944311&scope=bot", "_blank")}
+                      style={{ marginRight: ".25em" }}
+                    />
                     <Button
                         label="Login"
                         className="p-button-success"
-                        onClick={() => (window.location.href = authLink)}
+                        onClick={() => window.open(authLink, "_self")}
                     />
+                </>
                 }
             />
         );
 
     return (
-        <Menubar end={<ProfileButton />} className="top-nav" model={items} />
+        <Menubar end={
+            <>
+                <Button
+                  label="Invite"
+                  className="p-button-rounded p-button-danger p-button"
+                  onClick={() => window.open("https://discord.com/oauth2/authorize?client_id=969414951292788766&permissions=1634569944311&scope=bot", "_blank")}
+                  style={{ marginRight: ".25em" }}
+                />
+            <ProfileButton />
+            </>
+        } className="top-nav" model={items} />
     );
 };
 

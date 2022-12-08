@@ -29,7 +29,8 @@ const ProfileButton = () => {
         <>
             <SlideMenu ref={menu} model={items} popup menuWidth={175} />
             <Avatar
-                size="large"
+              style={{ paddingTop: "0.15em", paddingBottom: "-1em" }}
+                size={"large"}
                 shape="circle"
                 image={auth.avatarURL}
                 onClick={(e) => menu.current?.toggle(e)}
