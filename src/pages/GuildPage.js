@@ -1,24 +1,20 @@
 import { useContext } from "react";
 import { Navigate, useParams } from "react-router-dom";
+import PropTypes from "prop-types";
 import { useQuery } from "@apollo/client";
 
 import { Splitter, SplitterPanel } from "primereact/splitter";
 
 import { AuthContext } from "../providers/AuthProvider";
 
-import { FetchClientUser } from "../gql/queries/client";
-
 import { FetchGuild } from "../gql/queries/guilds";
 
 import GuildInfo from "../components/Guild/GuildInfo";
 import MemberTable from "../components/Guild/MemberTable";
 
-const GuildPage = () => {
+const GuildPage = ({ bot }) => {
     const { auth } = useContext(AuthContext);
     const { guildId } = useParams();
-    const { data: { clientUser: bot } = {} } = useQuery(FetchClientUser, {
-        pollInterval: 100000,
-    });
     const { loading, data: { guild } = {} } = useQuery(FetchGuild, {
         variables: { guildId, fetchDb: true },
     });
@@ -50,6 +46,10 @@ const GuildPage = () => {
             </Splitter>
         </div>
     );
+};
+
+GuildPage.propTypes = {
+    bot: PropTypes.object,
 };
 
 export default GuildPage;

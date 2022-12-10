@@ -1,5 +1,6 @@
 import { useContext } from "react";
 import { AuthContext } from "../providers/AuthProvider";
+import PropTypes from "prop-types";
 
 import "../assets/less/Navigation.less";
 
@@ -8,8 +9,9 @@ import { Menubar } from "primereact/menubar";
 
 import ProfileButton from "./ProfileButton";
 import { useNavigate } from "react-router-dom";
+import { Avatar } from "primereact/avatar";
 
-const Navigation = () => {
+const Navigation = ({ bot }) => {
     const { auth } = useContext(AuthContext);
     const navigate = useNavigate();
 
@@ -20,6 +22,9 @@ const Navigation = () => {
         },
     ];
 
+
+    const logo = <Avatar image={bot.avatarURL} size="large" shape="circle" className="shadow-8" />;
+
     const authLink =
         process.env.NODE_ENV === "production"
             ? "https://discord.com/api/oauth2/authorize?client_id=969414951292788766&redirect_uri=https%3A%2F%2Fkuramisa.com%2Flogin&response_type=code&scope=identify%20guilds"
@@ -29,6 +34,7 @@ const Navigation = () => {
         return (
             <Menubar
                 className="top-nav"
+                start={logo}
                 model={items}
                 end={
                 <>
@@ -59,8 +65,11 @@ const Navigation = () => {
                 />
             <ProfileButton />
             </>
-        } className="top-nav" model={items} />
+        } className="top-nav" start={logo} model={items} />
     );
 };
 
+Navigation.propTypes = {
+    bot: PropTypes.object,
+};
 export default Navigation;
