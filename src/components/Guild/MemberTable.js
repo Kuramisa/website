@@ -199,7 +199,7 @@ const MemberTable = ({ auth, guild }) => {
         return (
             member.id !== auth.id && (
                 <>
-                    {guild.authPerms.includes("MODERATE_MEMBERS") && (
+                    {guild.authPerms.includes("ModerateMembers") && (
                         <SplitButton
                             label="Warn"
                             className="p-button-danger p-button-sm"
@@ -207,7 +207,7 @@ const MemberTable = ({ auth, guild }) => {
                             model={warnItems}
                         />
                     )}
-                    {guild.authPerms.includes("VIEW_AUDIT_LOG") ? (
+                    {guild.authPerms.includes("ViewAuditLog") ? (
                         <SplitButton
                             label="Report"
                             className="p-button-danger p-button-sm"
@@ -251,7 +251,7 @@ const MemberTable = ({ auth, guild }) => {
         <>
             {currentMember && (
                 <>
-                    {guild.authPerms.includes("MODERATE_MEMBERS") && (
+                    {guild.authPerms.includes("ModerateMembers") && (
                         <Dialog
                             header={`Warning ${currentMember.user.tag}`}
                             visible={warnDialog}
@@ -266,7 +266,7 @@ const MemberTable = ({ auth, guild }) => {
                             />
                         </Dialog>
                     )}
-                    {guild.authPerms.includes("VIEW_AUDIT_LOG") && (
+                    {guild.authPerms.includes("ViewAuditLog") && (
                         <>
                             <Dialog
                                 header={`Warnings of ${currentMember.user.tag}`}
