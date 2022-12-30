@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/kuraboard-old.iml" filepath="$PROJECT_DIR$/.idea/kuraboard-old.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/kuraboard.iml" filepath="$PROJECT_DIR$/.idea/kuraboard.iml" />
     </modules>
   </component>
 </project>
