@@ -28,7 +28,7 @@ const GuildPage = ({ bot }) => {
         guild.members.includes(bot.id) &&
         guild.members.includes(auth.id) ? (
         <div className="flex align-items-center justify-content-center">
-            <Splitter layout="vertical" className="w-7">
+            <Splitter layout="horizontal" className="w-7">
                 <SplitterPanel>
                     <GuildInfo guild={guild} />
                 </SplitterPanel>
@@ -39,7 +39,7 @@ const GuildPage = ({ bot }) => {
         </div>
     ) : (
         <div className="flex align-items-center justify-content-center">
-            <Splitter layout="vertical" className="w-7">
+            <Splitter layout="horizontal" className="w-7">
                 <SplitterPanel>
                     <GuildInfo guild={guild} />
                 </SplitterPanel>
