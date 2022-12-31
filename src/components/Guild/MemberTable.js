@@ -20,6 +20,7 @@ const MemberTable = ({ auth, guild }) => {
     });
 
     const toast = useRef(null);
+    const fetchToast = useRef(null);
 
     const [globalFilterValue, setGlobalFilterValue] = useState("");
     const [warnDialog, setWarnDialog] = useState(false);
@@ -76,10 +77,20 @@ const MemberTable = ({ auth, guild }) => {
                 fetchDb: true
             }
         }).then(({ data: { member: fetchedMember } }) => {
+            console.log(fetchedMember);
             const index = members.findIndex((m) => fetchedMember.user.id === m.user.id);
             const _members = [...members];
             _members[index] = fetchedMember;
             setMembers(_members);
+
+
+            fetchToast.current.show({
+                severity: "success",
+                summary: `Refreshed ${fetchedMember.user.tag}`,
+                life: 3000
+            });
+        }).catch((err) => {
+            console.error(err);
         });
     };
 
@@ -367,6 +378,7 @@ const MemberTable = ({ auth, guild }) => {
                     <Toast ref={toast} />
                 </>
             )}
+            <Toast ref={fetchToast} />
             <DataTable
                 className="p-datatable-members"
                 paginator
@@ -381,6 +393,7 @@ const MemberTable = ({ auth, guild }) => {
                 rows={5}
             >
                 <Column
+                    className="w-4"
                     field="username"
                     header="Username"
                     sortable
