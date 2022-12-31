@@ -6,6 +6,7 @@ import { persistor, store } from "../reducers";
 import { ApolloClient, ApolloLink, ApolloProvider, createHttpLink, InMemoryCache } from "@apollo/client";
 import { setContext } from "@apollo/client/link/context";
 import { onError } from "@apollo/client/link/error";
+import { RetryLink } from "@apollo/client/link/retry";
 
 const { REACT_APP_SERVER_URL } = process.env;
 
@@ -34,7 +35,19 @@ const errorLink = onError(({ graphQLErrors, networkError }) => {
     if (networkError) console.log(`[Network Error]: ${networkError}`);
 });
 
-const link = ApolloLink.from([errorLink, authLink, httpLink]);
+const retryLink = new RetryLink({
+    delay: {
+        initial: 300,
+        max: Infinity,
+        jitter: true
+    },
+    attempts: {
+        max: 5,
+        retryIf: (error) => !!error
+    }
+});
+
+const link = ApolloLink.from([retryLink, errorLink, authLink, httpLink]);
 const cache = new InMemoryCache();
 
 const client = new ApolloClient({
