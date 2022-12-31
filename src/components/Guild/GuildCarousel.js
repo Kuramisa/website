@@ -15,17 +15,7 @@ const GuildCarousel = () => {
 
     const breakpoints = [
         {
-            breakpoint: "1024px",
-            numVisible: 3,
-            numScroll: 3
-        },
-        {
-            breakpoint: "600px",
-            numVisible: 2,
-            numScroll: 2
-        },
-        {
-            breakpoint: "480px",
+            breakpoint: "1800px",
             numVisible: 1,
             numScroll: 1
         }
@@ -42,9 +32,9 @@ const GuildCarousel = () => {
         <Carousel
             value={guilds}
             itemTemplate={guildTemplate}
-            numVisible={4}
+            numVisible={3}
+            numScroll={1}
             responsiveOptions={breakpoints}
-            style={{ width: "1840px" }}
         />
     );
 };

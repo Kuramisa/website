@@ -22,13 +22,6 @@ const GuildInfo = ({ guild }) => {
                 </div>
                 <div>
                     <h3 className="mb-1">{guild.name}</h3>
-                    <h4 className="mb-1">
-                        <i>
-                            {guild.description
-                                ? guild.description
-                                : "No Description"}
-                        </i>
-                    </h4>
                     <h6 className="mb-3">
                         {guild.members.length} Members
                     </h6>
