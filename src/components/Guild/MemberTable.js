@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import PropTypes from "prop-types";
 
@@ -7,19 +7,10 @@ import { useLazyQuery, useMutation, useQuery } from "@apollo/client";
 
 import "../../assets/less/MemberTable.less";
 
-import {
-    FilterMatchMode,
-    Button,
-    Dialog,
-    SplitButton,
-    DataTable,
-    InputText,
-    Chip,
-    Column,
-    Toast
-} from "primereact";
+import { Button, Chip, Column, DataTable, Dialog, FilterMatchMode, InputText, SplitButton, Toast } from "primereact";
+import { AiOutlineReload } from "react-icons/ai";
 
-import { FetchMembers } from "../../gql/queries/guilds";
+import { FetchMember, FetchMembers } from "../../gql/queries/guilds";
 import { ReportUser, WarnUser } from "../../gql/mutations/users";
 import { FetchReports, FetchWarns } from "../../gql/queries/users";
 
@@ -40,15 +31,22 @@ const MemberTable = ({ auth, guild }) => {
     const [currentMember, setCurrentMember] = useState(null);
     const [reason, setReason] = useState("");
 
-    const { loading: membersLoading, data: { members } = {} } = useQuery(
+    const { loading: membersLoading, data: { members: fetchedMembers } = {} } = useQuery(
         FetchMembers,
         {
             variables: {
-                guildId: guild.id,
-                fetchDb: true
+                guildId: guild.id
             }
         }
     );
+
+    const [members, setMembers] = useState(fetchedMembers);
+
+    useEffect(() => {
+        setMembers(fetchedMembers);
+    }, [fetchedMembers]);
+
+    const [fetchMember] = useLazyQuery(FetchMember);
 
     const [getWarns, { loading: warningsLoading, data: { warns = {} } = {} }] =
         useLazyQuery(FetchWarns);
@@ -69,6 +67,21 @@ const MemberTable = ({ auth, guild }) => {
             setReportDialog(false);
         }
     });
+
+    const refetchMember = (member) => {
+        fetchMember({
+            variables: {
+                guildId: guild.id,
+                memberId: member.user.id,
+                fetchDb: true
+            }
+        }).then(({ data: { member: fetchedMember } }) => {
+            const index = members.findIndex((m) => fetchedMember.user.id === m.user.id);
+            const _members = [...members];
+            _members[index] = fetchedMember;
+            setMembers(_members);
+        });
+    };
 
     const onGlobalFilterChange = (e) => {
         const value = e.target.value;
@@ -102,11 +115,14 @@ const MemberTable = ({ auth, guild }) => {
 
     const usernameTemplate = (member) => {
         return (
-            <Chip
-                imageAlt={member.username}
-                label={member.user.username}
-                image={member.avatarURL}
-            />
+            <>
+                <Chip
+                    imageAlt={member.username}
+                    label={member.user.username}
+                    image={member.avatarURL}
+                />
+                <AiOutlineReload onClick={() => refetchMember(member)} className="ml-1 mb-2" />
+            </>
         );
     };
 
@@ -115,6 +131,7 @@ const MemberTable = ({ auth, guild }) => {
     };
 
     const joinedTemplate = (member) => {
+        if (!member.joinedTimestamp) return <span>Sometime ago...</span>;
         const joinedAt = `${moment(member.joinedTimestamp).format(
             "MMM Do YY h:mm A"
         )} (${moment(member.joinedTimestamp).fromNow()})`;
@@ -197,7 +214,7 @@ const MemberTable = ({ auth, guild }) => {
         ];
 
         return (
-            member.id !== auth.id && (
+            member.user.id !== auth.id ? (
                 <>
                     {guild.authPerms.includes("ModerateMembers") && (
                         <SplitButton
@@ -222,6 +239,8 @@ const MemberTable = ({ auth, guild }) => {
                         />
                     )}
                 </>
+            ) : (
+                <></>
             )
         );
     };

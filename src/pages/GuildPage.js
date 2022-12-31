@@ -9,14 +9,14 @@ import { AuthContext } from "../providers/AuthProvider";
 
 import { FetchGuild } from "../gql/queries/guilds";
 
-import GuildInfo from "../components/Guild/GuildInfo";
+import GuildInfoPage from "../components/Guild/GuildInfoPage";
 import MemberTable from "../components/Guild/MemberTable";
 
 const GuildPage = ({ bot }) => {
     const { auth } = useContext(AuthContext);
     const { guildId } = useParams();
     const { loading, data: { guild } = {} } = useQuery(FetchGuild, {
-        variables: { guildId, fetchDb: true },
+        variables: { guildId, fetchDb: true }
     });
 
     if (loading) return <></>;
@@ -24,15 +24,15 @@ const GuildPage = ({ bot }) => {
     if (!guild) return <Navigate to="/" replace={true} />;
 
     return auth &&
-        bot &&
-        guild.members.includes(bot.id) &&
-        guild.members.includes(auth.id) ? (
+    bot &&
+    guild.members.includes(bot.id) &&
+    guild.members.includes(auth.id) ? (
         <div className="flex align-items-center justify-content-center">
-            <Splitter layout="horizontal" className="w-7">
-                <SplitterPanel>
-                    <GuildInfo guild={guild} />
+            <Splitter layout="horizontal">
+                <SplitterPanel minSize={20} size={30}>
+                    <GuildInfoPage guild={guild} />
                 </SplitterPanel>
-                <SplitterPanel>
+                <SplitterPanel minSize={70} size={80}>
                     <MemberTable auth={auth} guild={guild} />
                 </SplitterPanel>
             </Splitter>
@@ -41,7 +41,7 @@ const GuildPage = ({ bot }) => {
         <div className="flex align-items-center justify-content-center">
             <Splitter layout="horizontal" className="w-7">
                 <SplitterPanel>
-                    <GuildInfo guild={guild} />
+                    <GuildInfoPage guild={guild} />
                 </SplitterPanel>
             </Splitter>
         </div>
@@ -49,7 +49,7 @@ const GuildPage = ({ bot }) => {
 };
 
 GuildPage.propTypes = {
-    bot: PropTypes.object,
+    bot: PropTypes.object
 };
 
 export default GuildPage;
