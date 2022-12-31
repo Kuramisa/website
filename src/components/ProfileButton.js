@@ -17,19 +17,19 @@ const ProfileButton = () => {
     const items = [
         {
             label: "Profile",
-            command: () => navigate("/@me"),
+            command: () => navigate("/@me")
         },
         {
             label: "Logout",
-            command: () => logout(),
-        },
+            command: () => logout()
+        }
     ];
 
     return (
         <>
             <SlideMenu ref={menu} model={items} popup menuWidth={175} />
             <Avatar
-              style={{ paddingTop: "0.15em", paddingBottom: "-1em" }}
+                style={{ paddingTop: "0.15em", paddingBottom: "-1em" }}
                 size={"large"}
                 shape="circle"
                 image={auth.avatarURL}

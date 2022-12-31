@@ -1,15 +1,9 @@
 import App from "../App";
 import { Provider } from "react-redux";
 import { PersistGate } from "redux-persist/integration/react";
-import { store, persistor } from "../reducers";
+import { persistor, store } from "../reducers";
 
-import {
-    ApolloClient,
-    ApolloProvider,
-    InMemoryCache,
-    ApolloLink,
-    createHttpLink
-} from "@apollo/client";
+import { ApolloClient, ApolloLink, ApolloProvider, createHttpLink, InMemoryCache } from "@apollo/client";
 import { setContext } from "@apollo/client/link/context";
 import { onError } from "@apollo/client/link/error";
 

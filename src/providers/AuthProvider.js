@@ -10,7 +10,8 @@ const AuthContext = createContext({
     login: (userData) => {
         return userData;
     },
-    logout: () => {},
+    logout: () => {
+    }
 });
 
 const AuthProvider = (props) => {
@@ -21,7 +22,7 @@ const AuthProvider = (props) => {
     const [authUser] = useMutation(AuthUser, {
         update: (_, { data: { authUser: authData } }) => {
             dispatch(login(authData));
-        },
+        }
     });
 
     const lin = (token) => {

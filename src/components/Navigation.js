@@ -18,8 +18,8 @@ const Navigation = ({ bot }) => {
     const items = [
         {
             label: "Home",
-            command: () => navigate("/"),
-        },
+            command: () => navigate("/")
+        }
     ];
 
 
@@ -37,19 +37,19 @@ const Navigation = ({ bot }) => {
                 start={logo}
                 model={items}
                 end={
-                <>
-                    <Button
-                        label="Invite"
-                        className="p-button-danger"
-                        onClick={() => window.open("https://discord.com/oauth2/authorize?client_id=969414951292788766&permissions=1634569944311&scope=bot", "_blank")}
-                      style={{ marginRight: ".25em" }}
-                    />
-                    <Button
-                        label="Login"
-                        className="p-button-success"
-                        onClick={() => window.open(authLink, "_self")}
-                    />
-                </>
+                    <>
+                        <Button
+                            label="Invite"
+                            className="p-button-danger"
+                            onClick={() => window.open("https://discord.com/oauth2/authorize?client_id=969414951292788766&permissions=1634569944311&scope=bot", "_blank")}
+                            style={{ marginRight: ".25em" }}
+                        />
+                        <Button
+                            label="Login"
+                            className="p-button-success"
+                            onClick={() => window.open(authLink, "_self")}
+                        />
+                    </>
                 }
             />
         );
@@ -58,18 +58,18 @@ const Navigation = ({ bot }) => {
         <Menubar end={
             <>
                 <Button
-                  label="Invite"
-                  className="p-button-rounded p-button-danger p-button"
-                  onClick={() => window.open("https://discord.com/oauth2/authorize?client_id=969414951292788766&permissions=1634569944311&scope=bot", "_blank")}
-                  style={{ marginRight: ".25em" }}
+                    label="Invite"
+                    className="p-button-rounded p-button-danger p-button"
+                    onClick={() => window.open("https://discord.com/oauth2/authorize?client_id=969414951292788766&permissions=1634569944311&scope=bot", "_blank")}
+                    style={{ marginRight: ".25em" }}
                 />
-            <ProfileButton />
+                <ProfileButton />
             </>
         } className="top-nav" start={logo} model={items} />
     );
 };
 
 Navigation.propTypes = {
-    bot: PropTypes.object,
+    bot: PropTypes.object
 };
 export default Navigation;
