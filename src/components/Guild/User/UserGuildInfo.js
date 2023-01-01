@@ -20,7 +20,7 @@ const UserGuildInfo = ({ guild }) => {
 
     useEffect(() => {
         if (guild.ownerId) fetchOwner({ variables: { userId: guild.ownerId } });
-    }, [guild, guild.ownerId]);
+    }, [guild, guild.ownerId, fetchOwner]);
 
     const avatar = loading ? (
         "Loading..."
