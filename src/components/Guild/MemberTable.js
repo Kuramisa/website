@@ -77,7 +77,6 @@ const MemberTable = ({ auth, guild }) => {
                 fetchDb: true
             }
         }).then(({ data: { member: fetchedMember } }) => {
-            console.log(fetchedMember);
             const index = members.findIndex((m) => fetchedMember.user.id === m.user.id);
             const _members = [...members];
             _members[index] = fetchedMember;
